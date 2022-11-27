@@ -3,12 +3,10 @@ import styles from './Signup.module.css';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Button from "../../components/Button";
-import * as request from "../../utils/request";
-
 const cx = classNames.bind(styles)
 
 
-function Login() {
+function Signup() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
@@ -20,18 +18,27 @@ function Login() {
         if(username !== '' && password !== '' && repeatPassword !== '') {
             if(password === repeatPassword) {
                 try {
-                    const res = await request.post("/signup",
-                        {
-                            name: username,
+                    const option = {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            username: username,
                             password: password,
+                        }),
+                        headers: {
+                            'Content-Type': 'application/json'
                         }
-                    )
-                    
-                    setUsername('')
-                    setPassword('')
+                    }
+                    const res = await fetch("http://localhost:8000/signup", option).then((res) => res.json())
+                    if(res.data === null) {
+                        alert(res.exception.username)
+                    } else {
+                        alert("Signup Success")
+                        setUsername('')
+                        setPassword('')
+                        navigate('/Login-page');
+                    }
         
-                    alert(res);
-                    // navigate('/Login');
+                    
 
                 } catch (error) {
                     console.log(error)
@@ -85,11 +92,11 @@ function Login() {
                         />
                     </div>
                     <input type="submit" value="Singup"/>
-                    <span>Already have account?<Button text to={"/Login"}>Login now</Button></span>
+                    <span>Already have account?<Button text to={"/Login-page"}>Login now</Button></span>
                 </form>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default Signup;

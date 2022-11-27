@@ -28,12 +28,14 @@ function ResultItem({ data = [] , onClick }) {
                         {data.map((value, index) => {
                             return(
                                 <tr key={index}>
-                                    <td>{value.requirementId}</td>
-                                    <td>{value.testCasesId}</td>
-                                    <td>{value.testResult}</td>
+                                    <td>{value.req_id}</td>
+                                    <td>{value.testcase_id}</td>
+                                    <td>{value.testcase_result}</td>
                                     <td>
-                                        <Button primary to={'/home/'+require+'/'+value.requirementId} onClick={Delete(value.requirementId)}>Delete</Button>
-                                        <Button outline to={'/home/'+require+'/'+value.requirementId} onClick={onClick}>Update</Button>
+                                        <div className={cx('action')}>
+                                            <Button primary to={'/home/'+require+'/'+value.req_id} onClick={Delete(value.req_id)}>Delete</Button>
+                                            <Button outline to={'/home/'+require+'/'+value.req_id} onClick={onClick}>Update</Button>
+                                        </div>
                                     </td>
                                 </tr>
                             )

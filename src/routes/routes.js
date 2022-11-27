@@ -7,7 +7,7 @@ const publicRoutes = [
     { path: '/', component: Home },
     { path: '/home/:require', component: Home },
     { path: '/home/:require/:id', component: Home },
-    { path: '/Login', component: Login, layout: OnlyHeader },
+    { path: '/Login-page', component: Login, layout: OnlyHeader },
     { path: '/Signup', component: Signup, layout: OnlyHeader }
 ]
 

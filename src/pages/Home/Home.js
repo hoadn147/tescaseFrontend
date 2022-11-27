@@ -1,5 +1,3 @@
-import { useData, actions } from "../../data";
-import { constants } from "../../data";
 import { useParams, useNavigate  } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from './Home.module.css';
@@ -11,180 +9,6 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 import Action from "./Action";
 
-const UNIT_DATA = [
-    {
-        requirementId: 1,
-        testCasesId : 1,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 2,
-        testCasesId : 2,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 3,
-        testCasesId : 3,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 4,
-        testCasesId : 4,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 5,
-        testCasesId : 5,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 6,
-        testCasesId : 6,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 7,
-        testCasesId : 7,
-        testResult : "Haha",
-    },
-    {
-        requirementId: 8,
-        testCasesId : 8,
-        testResult : "Haha",
-    },
-]
-
-const COMPONENTS_DATA = [
-    {
-        requirementId: 1,
-        testCasesId : 1,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 2,
-        testCasesId : 2,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 3,
-        testCasesId : 3,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 4,
-        testCasesId : 4,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 5,
-        testCasesId : 5,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 6,
-        testCasesId : 6,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 7,
-        testCasesId : 7,
-        testResult : "HUHU",
-    },
-    {
-        requirementId: 8,
-        testCasesId : 8,
-        testResult : "HUHU",
-    },
-]
-
-const DOMAIN_DATA = [
-    {
-        requirementId: 1,
-        testCasesId : 1,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 2,
-        testCasesId : 2,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 3,
-        testCasesId : 3,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 4,
-        testCasesId : 4,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 5,
-        testCasesId : 5,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 6,
-        testCasesId : 6,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 7,
-        testCasesId : 7,
-        testResult : "HIHI",
-    },
-    {
-        requirementId: 8,
-        testCasesId : 8,
-        testResult : "HIHI",
-    },
-]
-
-const COMPLETE_DATA = [
-    {
-        requirementId: 1,
-        testCasesId : 1,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 2,
-        testCasesId : 2,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 3,
-        testCasesId : 3,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 4,
-        testCasesId : 4,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 5,
-        testCasesId : 5,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 6,
-        testCasesId : 6,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 7,
-        testCasesId : 7,
-        testResult : "HEHE",
-    },
-    {
-        requirementId: 8,
-        testCasesId : 8,
-        testResult : "HEHE",
-    },
-]
-
-
-
 const cx = classNames.bind(styles)
 
 function Home() {
@@ -192,40 +16,38 @@ function Home() {
     const [loading, setLoading] = useState(false)
     const [createStatus, setCreateStatus] = useState(false)
     const { require, id } = useParams()
+    const parent_tab = require != undefined ? require : 'UNIT'
     const navigate = useNavigate();
-    const [state, dispacth] = useData()
-    const data = state || UNIT_DATA
+    const [data, setData] = useState([])
+    const user = JSON.parse(localStorage.getItem('user'))
     useEffect(() => {
         const check = localStorage.getItem('authenticated') || false
         if(check !== 'true') {
-            console.log(true + "huhu")
-            navigate('/Login')
+            navigate('/Login-page')
         }
+        
         setLoading(true)
-        setTimeout(() => {
-            switch(require) {
-                case 'unit':
-                    dispacth(actions.setData(constants.SET_DATA_UNIT, UNIT_DATA))
-                    break;
-                case 'components':
-                    dispacth(actions.setData(constants.SET_DATA_COMPONENT, COMPONENTS_DATA))
-                    break;
-                case 'domain':
-                    dispacth(actions.setData(constants.SET_DATA_DOMAIN, DOMAIN_DATA))
-                    break;
-                case 'complete':
-                    dispacth(actions.setData(constants.SET_DATA_COMPLETE, COMPLETE_DATA))
-                    break;
-                default:
-                    dispacth(actions.setData(constants.SET_DATA_UNIT, UNIT_DATA))
-                    break;
+        const fetchApi = async () => {
+            try {
+                const result = await fetch(`http://localhost:8000/testcase?req_id=1&testcase_id=123&user_id=${user.id}&parent_tab_name=${parent_tab}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then((res) => res.json())
+                setData(result.data)
+                setLoading(false)
+            } catch (error) {
+                console.log(error)
             }
-            setLoading(false)
-            setCreateStatus(false)
-        }, 2000)
+        }
+        fetchApi()
+        
+        setCreateStatus(false)
 
         // eslint-disable-next-line
-    }, [require, dispacth])
+    }, [require])
     const datas = id === undefined ? {} : {
         id : id,
         update: true,

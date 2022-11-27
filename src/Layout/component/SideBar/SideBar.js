@@ -12,10 +12,10 @@ function SideBar() {
         <div className={cx('side-bar')}>
             <div className={cx('btn-list')}>
                 <ul>
-                    <li><Button to='/home/unit' outline long className={cx('button-action')}>Unit</Button></li>
-                    <li><Button to='/home/components' outline long className={cx('button-action')} >Component</Button></li>
-                    <li><Button to='/home/domain' outline long className={cx('button-action')}>Domain</Button></li>
-                    <li><Button to='/home/complete' outline long className={cx('button-action')}>Complete</Button></li>
+                    <li><Button to='/home/UNIT' text long className={cx('button-action')}>Unit</Button></li>
+                    <li><Button to='/home/COMPONENT' text long className={cx('button-action')} >Component</Button></li>
+                    <li><Button to='/home/DOMAIN' text long className={cx('button-action')}>Domain</Button></li>
+                    <li><Button to='/home/COMPLETE' text long className={cx('button-action')}>Complete</Button></li>
                 </ul>
             </div>
         </div>

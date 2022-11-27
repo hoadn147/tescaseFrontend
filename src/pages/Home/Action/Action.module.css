@@ -7,10 +7,21 @@
 }
 .btn-action {
     display: flex;
-    justify-content: space-around;
+    flex-wrap: nowrap;
+    justify-content: space-between;
     align-items: center;
     padding: 20px 0;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+}
+
+.title {
+    height: 250px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 600;
 }
 
 .form-action {

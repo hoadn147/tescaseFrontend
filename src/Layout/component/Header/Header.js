@@ -12,16 +12,16 @@ const cx = classNames.bind(styles)
 function Header() {
     const user = JSON.parse(localStorage.getItem('user'))
     const navigate = useNavigate();
-    const [action, setAction] = useState('/Login')
+    const [action, setAction] = useState('/Login-page')
 
     const logout = () => {
         localStorage.setItem("authenticated", false);
         localStorage.setItem("user", false);
-        navigate('/Login')
+        navigate('/Login-page')
     }
 
     const change = () => {
-        setAction(action === '/Login' ? '/Signup' : '/Login')
+        setAction(action === '/Login-page' ? '/Signup' : '/Login-page')
     }
 
     useEffect(() => {
@@ -38,7 +38,7 @@ function Header() {
         <div className={cx('Wrapper')}>
             <div className={cx('Logo')}>
                 <img src={images.logo} alt='Logo'/>
-                <h3>Case Tracking</h3>
+                <h3>TestCase Tracking</h3>
             </div>
             {action === '/' ? (
                 <div className={cx('Info')}>
@@ -48,7 +48,7 @@ function Header() {
                 </div>
             ) : (
                 <div className={cx('Info')}>
-                    <Button onClick={change} primary to={action}>{action === '/Login' ? 'Login' : 'Signup'}</Button>
+                    <Button onClick={change} primary to={action}>{action === '/Login-page' ? 'Login' : 'Signup'}</Button>
                 </div>
             )}
 
