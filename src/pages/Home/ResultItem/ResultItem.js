@@ -12,6 +12,7 @@ function ResultItem({ data = [] , onClick }) {
     const deleteTestCase = async (id) => {
         try {
             const option = {
+                mode: 'no-cors',
                 method: 'DELETE',
                 body: JSON.stringify({
                     user_id: user.id,
@@ -23,7 +24,7 @@ function ResultItem({ data = [] , onClick }) {
             }
             const res = await fetch("http://localhost:8000/testcase", option).then((res) => res.json())
             console.log(res.data.message)
-            negative('/home/'+require)
+            negative('/Navigate/'+require)
         } catch (error) {
             console.log(error)
         }
