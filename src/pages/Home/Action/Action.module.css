@@ -1,0 +1,103 @@
+.action-box {
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    overflow: hidden;
+    animation: show 0.3s ease-in-out;
+}
+.btn-action {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.form-action {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 300px;
+}
+.form-action h2 {
+    width: 100%;
+}
+
+.form-action form {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.input-value {
+    width: 32%;
+}
+
+.input-value label {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.input-value input:not( input[type="submit"]  ) {
+    margin: 10px 0;
+    width: 100%;
+    padding: 10px 5px;
+    border: 1px solid #ccc;
+}
+
+.input-value input:not( input[type="submit"]  ):focus {
+    border: 1px solid #000
+}
+
+.form-action input[type='submit'], .btn-add button {
+    border-radius: 20px;
+    width: 100px;
+    padding: 10px 5px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+.form-action input[type='submit']:hover {
+    opacity: 0.8;
+}
+
+.btn-add {
+    width: 100%;
+}
+
+.scroll {
+    max-height: 200px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    animation: showList 0.3s ease-in-out;
+}
+
+.input-value .checkbox input[type='checkbox'] {
+    width: 10%;
+}
+
+.btn-create {
+    width: 100%;
+}
+
+
+@keyframes show {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 100%;
+    }
+}
+@keyframes showList {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 200px;
+    }
+}

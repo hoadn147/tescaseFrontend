@@ -1,0 +1,61 @@
+.form-container {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: #ccc;
+}
+
+.box {
+    width: 35%;
+    padding: 10px;
+    text-align: center;
+}
+
+.box p {
+    font-size: 2.3rem;
+    font-weight: 700;
+}
+
+.box form {
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    text-align: left;
+    font-size: 1.5rem;
+}
+
+.box form input[ type="submit" ] {
+    width: 100%;
+    padding: 10px 5px;
+    background: var(--primary-color);
+    color: #ccc;
+}
+
+.box form input[ type="submit" ]:hover {
+    opacity: 0.5;
+}
+
+
+.input-form {
+    width: 100%;
+}
+
+.input-form label {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.input-form input:not( input[ type="submit" ] ) {
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 10px 5px;
+    margin: 10px 0;
+    transition: 0.3s ease-in-out;
+    background: #fff;
+}
+
+.input-form input:not( input[ type="submit" ] ):focus {
+    border: 1px solid #000;
+}
