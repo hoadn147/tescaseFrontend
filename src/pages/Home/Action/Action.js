@@ -8,6 +8,7 @@ import { useLayoutEffect, useState, useRef, useEffect } from "react";
 const cx = classNames.bind(styles)
 
 function Action({ update = false, id, data = [] }) {
+    const pattern = /^[a-zA-Z0-9]+$/
     const { require } = useParams()
     const navigate = useNavigate()
     //form create test case
@@ -46,6 +47,35 @@ function Action({ update = false, id, data = [] }) {
         }
     }, [valueRqId, valueTCId, valueTR])
 
+    const handleCreateTestCase = async (e) => {
+        console.log('haha')
+        e.preventDefault()
+        try {
+            const option = {
+                method: 'POST',
+                body: JSON.stringify({
+                    testcase_id: valueTCId,
+                    req_id: valueRqId,
+                    testcase_result: valueTR,
+                    parent_tab_name: require,
+                    user_id : user.id,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const res = await fetch("http://localhost:8000/testcase", option).then((res) => res.json())
+            if(res.data === null) {
+                console.log(res.exception.non_field_errors)
+                setError(res.exception.non_field_errors)  
+            }
+            
+            navigate('/Navigate/'+require);
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     //create filter action
     const btn_filter = useRef()
     const handleChecked = (id) => { 
@@ -69,6 +99,33 @@ function Action({ update = false, id, data = [] }) {
             }
         }
     }, [addValue, filter])
+
+    const handleCreateFilter = async (e) => {
+        e.preventDefault()
+        const reqIdString = addValue.map((value) => `${value}`).join(',') 
+        try {
+            const option = {
+                method: 'POST',
+                body: JSON.stringify({
+                    user_id: user.id,
+                    parent_tab_name: require,
+                    req_id: reqIdString,
+                    filter_name: filter
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const res = await fetch("http://localhost:8000/filter-requirement", option).then((res) => res.json())
+            if(res.data === null) {
+                console.log(res.exception.non_field_errors)
+                setError(res.exception.non_field_errors)  
+            }
+            navigate('/Navigate/'+require);
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     //update action
     const btn_update = useRef()
@@ -106,34 +163,34 @@ function Action({ update = false, id, data = [] }) {
             // eslint-disable-next-line
     }, [update])
 
-
-    const handleCreateTestCase = async (e) => {
+    const handleUpdate = async (e) => {
         e.preventDefault()
         try {
             const option = {
                 method: 'POST',
                 body: JSON.stringify({
-                    testcase_id: valueTCId,
-                    req_id: valueRqId,
-                    testcase_result: valueTR,
+                    id: data_update.id,
+                    testcase_id: testCaseId,
+                    req_id: req_id,
+                    testcase_result: testResult,
                     parent_tab_name: require,
-                    user_id : user.id,
+                    user_id: user.id
                 }),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }
-            const res = await fetch("http://localhost:8000/testcase", option).then((res) => res.json())
+            const res = await fetch("http://localhost:8000/test-case-update", option).then((res) => res.json())
             if(res.data === null) {
-                console.log(res.exception.username)
-                setError(res.exception.username)
-            } else {
-                navigate('/home/'+require);
+                console.log(res.exception.non_field_errors)
+                setError(res.exception.non_field_errors)  
             }
+            navigate('/Navigate/'+require);
         } catch (error) {
             console.log(error)
         }
     }
+    
 
 
     return (  
@@ -158,7 +215,7 @@ function Action({ update = false, id, data = [] }) {
                             <div className={cx('input-value')}>
                                 <label form="requireID">Requirement ID</label>
                                 <br></br>
-                                <input type='text' value={valueRqId} onChange={(e) => setValueRqId(e.target.value)} name="requireID" placeholder="Enter requirement ID" required/>
+                                <input type='text' value={valueRqId} onChange={(e) => {if(e.target.value === '' || pattern.test(e.target.value)) setValueRqId(e.target.value)}} name="requireID" placeholder="Enter requirement ID" required/>
                             </div>
                             <div className={cx('input-value')}>
                                 <label form="tCId">Test Cases ID</label>
@@ -180,7 +237,7 @@ function Action({ update = false, id, data = [] }) {
                 {createType === 'createFilter' && (
                     <>
                         <h2>Create, Update Filter For {require}</h2>
-                        <form>
+                        <form onSubmit={handleCreateFilter}>
                         <h4 style={{ color: "red" }}>{error}</h4>
                         <div className={cx('input-value')}>
                             <label form="filterName">Filter Name</label>
@@ -212,12 +269,12 @@ function Action({ update = false, id, data = [] }) {
                 {id !== undefined && createType === 'update' && (
                     <>
                         <h2>Update</h2>
-                        <form>
+                        <form onSubmit={handleUpdate}>
                             <h4 style={{ color: "red" }}>{error}</h4>
                             <div className={cx('input-value')}>
                                 <label form="requireID">Requirement ID</label>
                                 <br></br>
-                                <input type='text'  value={req_id}  onChange={(e) => setReq_id(e.target.value)} name="requireID" required/>
+                                <input type='text' value={req_id}  onChange={(e) => setReq_id(e.target.value)} name="requireID" required/>
                             </div>
                             <div className={cx('input-value')}>
                                 <label form="tCId">Test Cases ID</label>

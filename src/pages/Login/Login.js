@@ -36,7 +36,7 @@ function Login() {
                     setPassword('')
 
                     console.log('Login success')
-                    navigate('/');
+                    navigate('/home/UNIT');
                 } else {
                     setError("Wrong username or password!!")
                 }

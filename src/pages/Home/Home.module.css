@@ -24,11 +24,7 @@
 }
 
 .search input {
-    width: 70%;
-}
-
-.search button {
-    flex: 1;
+    width: 100%;
 }
 
 .Content {

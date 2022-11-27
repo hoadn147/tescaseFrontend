@@ -43,7 +43,6 @@
     background-color: var(--primary-color);
     color: var(--white);
     border: 1px solid var(--primary-color);
-
 }
 
 .primary:hover {
