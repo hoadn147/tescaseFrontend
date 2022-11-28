@@ -8,6 +8,7 @@ function Navigated() {
         if(!!require) {
             navigate('/home/'+require)
         }
+        // eslint-disable-next-line
     }, [])
 }
 

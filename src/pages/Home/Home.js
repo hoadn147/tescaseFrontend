@@ -62,6 +62,7 @@ function Home() {
                 .then((res) => res.json())
                 setData(result.data)
                 setLoading(false)
+                
             } catch (error) {
                 console.log(error)
             }
