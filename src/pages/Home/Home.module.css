@@ -1,11 +1,13 @@
 .wrapper {
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 .header {
     display: flex;
     justify-content: space-between;
     padding: 0 30px;
+    align-items: center;
 }
 
 .header h1 {
@@ -15,7 +17,8 @@
 }
 
 .search {
-    width: 250px;
+    height: 40px;
+    width: 200px;
     border: 1px solid #ccc;
     border-radius: 20px;
     padding-left: 10px;
@@ -39,9 +42,14 @@
 }
 
 .input-filter {
+    border: 1px solid #ccc;
     width: 150px;
     padding: 10px;
     margin: 20px 0;
+}
+
+.input-filter option {
+    font-size: 1.5rem;
 }
 
 .loading {
@@ -72,6 +80,11 @@ option:first-child {
     }
 }
 
-@media (max-width: 600px) {
-    
+@media (max-width: 764px) {
+    .header h1 {
+        font-size: 1.9rem;
+    }
+    .search {
+        width: 170px;
+    }
 }

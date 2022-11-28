@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 :root {
     --primary-color: #fe2c55;
     --black: #000;
@@ -23,6 +24,14 @@ html {
 
 body {
     height: 100vh;
+}
+
+body > div {
+    height: 100%;
+}
+
+.Container {
+    height: 100%;
     font-family: var(--font-family);
     font-size: 1.6rem;
     text-rendering: optimizeSpeed;
