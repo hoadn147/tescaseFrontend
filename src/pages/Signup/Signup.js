@@ -30,7 +30,7 @@ function Signup() {
                     }
                     const res = await fetch("http://localhost:8000/signup", option).then((res) => res.json())
                     if(res.data === null) {
-                        alert(res.exception.username)
+                        setError(res.exception.username)
                     } else {
                         alert("Signup Success")
                         setUsername('')
@@ -42,7 +42,7 @@ function Signup() {
 
                 } catch (error) {
                     console.log(error)
-                    setError("Wrong username or password!!")
+                    alert('Error, please try again later!!')
                 }
             } else {
                 setError("PassWord not match!!")

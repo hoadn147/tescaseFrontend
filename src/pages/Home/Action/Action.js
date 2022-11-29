@@ -225,7 +225,7 @@ function Action({ update = false, id, data = [] }) {
                             <div className={cx('input-value')}>
                                 <label form="tRsult">Test Result</label>
                                 <br></br>
-                                <input type='text' value={valueTR} onChange={(e) => setValueTR(e.target.value)} name="tRsult" placeholder="Enter Test Result" required/>
+                                <input type='text' value={valueTR} onChange={(e) => setValueTR(e.target.value)} name="tResult" placeholder="Enter Test Result" required/>
                             </div>
                             <div>
                                 {notification} <br/><br/>
