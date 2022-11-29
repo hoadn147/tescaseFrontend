@@ -1,8 +1,12 @@
+.wrapper {
+    overflow-x:auto;
+}
 .table-data{
     width: 100%;
     border-collapse: collapse;
     text-align: center;
     font-size: 1.5rem;
+
 }   
 
 .table-data thead td {
@@ -28,6 +32,9 @@
 .table-data tr td:nth-child(4) {
     width: 25%;
 }
+.table-data tr td:nth-child(4) a {
+    margin: 0;
+}
 .table-data tbody tr td:nth-child(3),.table-data tbody tr td:nth-child(2),.table-data tbody tr td:nth-child(1) {
     text-align: left;
     padding: 0 10px;
@@ -46,6 +53,7 @@
     width: 100%;
     max-height: 350px;
     overflow: scroll;
+    overflow-x: auto;
     padding: 0;
 }
 
@@ -74,4 +82,15 @@
 .primary:hover {
     border: 1px solid var(--primary-color);
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+}
+
+@media (max-width: 764px) {
+    .table-data {
+        font-size: 1rem;
+    }
+    .table-data tr td:nth-child(4) a, .primary {
+        min-width: 15px;
+        font-size: 0.8rem;
+    }
+
 }
