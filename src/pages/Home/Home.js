@@ -44,12 +44,16 @@ function Home() {
         }
         fetchApi()
     }, [require, parent_tab, user.id])
+    const check = localStorage.getItem('authenticated') || false
+    if(check !== 'true') {
+        navigate('/Login-page')
+    }
     useEffect(() => {
-        const check = localStorage.getItem('authenticated') || false
-        if(check !== 'true') {
-            navigate('/Login-page')
-        }
-        
+        setFilter('')
+        setSearch('')
+    },[require])
+    
+    useEffect(() => {
         setLoading(true)
         const fetchApi = async () => {
             try {
@@ -101,12 +105,19 @@ function Home() {
                     <div className={cx('action-head')}>
                         <select onChange={e => setFilter(e.target.value)} className={cx('input-filter')}>
                             <option >{!!filter ? filter : 'All'}</option>
-                            {!filter ? filter : (<option value="">All</option>)}
+                            {!filter ? '' : (<option value="">All</option>)}
                             {filterList.map((value, index) => (
                                 <option key={index} value={value.filter_name}>{value.filter_name}</option>
                             ))}
                         </select>
-                        <Button primary onClick={() => setCreateStatus(true)}>Create</Button>
+                        {(search + filter) === '' ? (
+                            <Button primary onClick={() => setCreateStatus(true)}>Create</Button>
+                        ) : (
+                            <Button outline onClick={() => {
+                                setFilter('')
+                                setSearch('')
+                            }}>ReloadData</Button>
+                        )}
                     </div>
                     <ResultItem data={data} onClick={() => setCreateStatus(true)}/>
                 </div>

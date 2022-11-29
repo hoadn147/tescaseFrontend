@@ -11,6 +11,7 @@ function Action({ update = false, id, data = [] }) {
     const pattern = /^[a-zA-Z0-9]+$/
     const { require } = useParams()
     const navigate = useNavigate()
+    const [testResultList, setTestResultList] = useState(['Pass', 'False'])
     //form create test case
     const [valueRqId, setValueRqId] = useState('')
     const [valueTCId, setValueTCId] = useState('')
@@ -192,7 +193,7 @@ function Action({ update = false, id, data = [] }) {
     }
     
 
-
+console.log(testResult)
     return (  
         <div className={cx('action-box')}>
             <div className={cx('btn-action')}>
@@ -210,8 +211,8 @@ function Action({ update = false, id, data = [] }) {
                 {createType === 'createCase' && (
                     <>
                         <h2>Create Test Case For {require}</h2>
+                        <h4 style={{ color: "red" }}>{error}</h4>
                         <form onSubmit={handleCreateTestCase}>
-                            <h4 style={{ color: "red" }}>{error}</h4>
                             <div className={cx('input-value')}>
                                 <label form="requireID">Requirement ID</label>
                                 <br></br>
@@ -225,7 +226,13 @@ function Action({ update = false, id, data = [] }) {
                             <div className={cx('input-value')}>
                                 <label form="tRsult">Test Result</label>
                                 <br></br>
-                                <input type='text' value={valueTR} onChange={(e) => setValueTR(e.target.value)} name="tResult" placeholder="Enter Test Result" required/>
+                                {/* <input type='text' value={valueTR} onChange={(e) => setValueTR(e.target.value)} name="tResult" placeholder="Enter Test Result" required/> */}
+                                <select onChange={(e) => setValueTR(e.target.value)}>
+                                    <option value=''>Choose Test Result</option>
+                                    {testResultList.map((value, index) => (
+                                        <option key={index} value={value}>{value}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 {notification} <br/><br/>
@@ -237,8 +244,8 @@ function Action({ update = false, id, data = [] }) {
                 {createType === 'createFilter' && (
                     <>
                         <h2>Create, Update Filter For {require}</h2>
-                        <form onSubmit={handleCreateFilter}>
                         <h4 style={{ color: "red" }}>{error}</h4>
+                        <form onSubmit={handleCreateFilter}>
                         <div className={cx('input-value')}>
                             <label form="filterName">Filter Name</label>
                             <br></br>
@@ -269,8 +276,8 @@ function Action({ update = false, id, data = [] }) {
                 {id !== undefined && createType === 'update' && (
                     <>
                         <h2>Update</h2>
+                        <h4 style={{ color: "red" }}>{error}</h4>
                         <form onSubmit={handleUpdate}>
-                            <h4 style={{ color: "red" }}>{error}</h4>
                             <div className={cx('input-value')}>
                                 <label form="requireID">Requirement ID</label>
                                 <br></br>
@@ -284,7 +291,14 @@ function Action({ update = false, id, data = [] }) {
                             <div className={cx('input-value')}>
                                 <label form="tRsult">Test Result</label>
                                 <br></br> 
-                                <input type='text' value={testResult}  onChange={(e) => setTestResult(e.target.value)} name="tRsult" required/>
+                                {/* <input type='text' value={testResult}  onChange={(e) => setTestResult(e.target.value)} name="tRsult" required/> */}
+                                <select onChange={(e) => setTestResult(e.target.value)}>
+                                    <option value={!!testResult ? testResult : ''}>{!!testResult ? testResult : 'Choose Test Result'}</option>
+                                    {!testResult ? '' : (<option value=''>Choose Test Result</option>)}
+                                    {testResultList.map((value, index) => (
+                                        <option key={index} value={value}>{value}</option>
+                                    ))}
+                                </select>
                             </div>
                             <div>
                                 {notification} <br/><br/>

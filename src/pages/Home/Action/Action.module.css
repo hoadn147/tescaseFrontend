@@ -51,7 +51,7 @@
     font-weight: 600;
 }
 
-.input-value input:not( input[type="submit"]  ) {
+.input-value input[type="text"], .input-value select {
     margin: 10px 0;
     width: 100%;
     padding: 10px 5px;
