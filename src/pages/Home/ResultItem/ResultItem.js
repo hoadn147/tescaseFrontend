@@ -12,7 +12,6 @@ function ResultItem({ data = [] , onClick }) {
     const deleteTestCase = async (id) => {
         try {
             const option = {
-                mode: 'no-cors',
                 method: 'DELETE',
                 body: JSON.stringify({
                     user_id: user.id,
